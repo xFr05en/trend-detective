@@ -1,0 +1,124 @@
+<!doctype html>
+<!-- Generated with AI assistance (Claude) for the NASA Space Apps Challenge 2026. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trend Detective: is your season really shifting?</title>
+<meta name="description" content="Pick a place and the months that matter to you. NASA records show whether your season is really shifting, how fast, and since when.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 34 34%27%3E%3Ccircle cx=%2715%27 cy=%2715%27 r=%2710%27 fill=%27none%27 stroke=%27%23E8A33D%27 stroke-width=%273%27/%3E%3Cline x1=%2722.5%27 y1=%2722.5%27 x2=%2731%27 y2=%2731%27 stroke=%27%23E8A33D%27 stroke-width=%273.5%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="15" cy="15" r="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="22.5" y1="22.5" x2="31" y2="31" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><polyline points="9,18 13,14 16,16 21,11" fill="none" stroke="#E8A33D" stroke-width="2"/></svg>
+    <span>TREND DETECTIVE</span>
+  </div>
+  <nav aria-label="Main">
+    <button type="button" id="btn-why">Why two checks?</button>
+    <button type="button" id="btn-data">About the data</button>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="rail" aria-label="Check a season">
+    <section class="checker" aria-labelledby="chk-h">
+      <h1 id="chk-h">Is your season really shifting?</h1>
+      <p class="lede">For people who plan around a season: festivals, farms, local services. Pick your place and the months that matter. NASA records show whether the change is real.</p>
+      <div class="field">
+        <label for="c-place">Place</label>
+        <select id="c-place"></select>
+        <small id="c-coords">Or click anywhere on the globe.</small>
+      </div>
+      <div class="field">
+        <span class="lab" id="c-months-lab">Months that matter</span>
+        <div class="months" id="c-months" role="group" aria-labelledby="c-months-lab"></div>
+        <div class="presets" id="c-presets"></div>
+      </div>
+      <div class="field">
+        <label for="c-var">What to measure</label>
+        <select id="c-var"></select>
+      </div>
+      <button type="button" id="c-run" class="primary">Check this season</button>
+      <p class="status" id="c-status" role="status"></p>
+      <p class="fine">Choose your months before you look. Trying many combinations will sooner or later turn up a "significant" one by chance.</p>
+    </section>
+    <h2>Worked examples</h2>
+    <div id="examples"></div>
+    <details>
+      <summary>Saved all-year records</summary>
+      <div id="investigations"></div>
+    </details>
+  </aside>
+
+  <main class="stage">
+    <div id="globe" role="img" aria-label="Rotating globe with marked places. Click a place to investigate it."></div>
+    <div id="globe-fallback" hidden></div>
+    <div class="legend" aria-label="Legend">
+      <span><i class="ring rising"></i>Rising</span>
+      <span><i class="ring falling"></i>Falling</span>
+      <span><i class="ring mixed"></i>Tests disagree</span>
+      <span><i class="ring none"></i>No clear trend yet</span>
+    </div>
+  </main>
+
+  <section class="panel" aria-live="polite" aria-label="Answer for the selected place">
+    <div id="tabs" class="tabs" role="tablist"></div>
+    <p class="caps" id="p-caps"></p>
+    <h2 class="headline" id="p-headline"></h2>
+    <p class="meaning" id="p-meaning"></p>
+    <p class="def" id="p-def"></p>
+    <div id="chart"></div>
+    <p class="chart-note" id="chart-note"></p>
+    <dl class="rows" id="rows"></dl>
+    <div class="callout" id="callout" hidden></div>
+    <div class="compare" id="compare" hidden></div>
+  </section>
+</div>
+
+<footer class="replay">
+  <button type="button" id="play" aria-pressed="false"><i aria-hidden="true"></i><span>REPLAY</span></button>
+  <div class="slider">
+    <label for="year">RECORD ENDS IN <b id="year-label"></b></label>
+    <input id="year" type="range" step="1">
+    <div class="ticks" id="ticks"></div>
+  </div>
+  <div class="since">
+    <span class="caps muted" id="since-label"></span>
+    <span class="big" id="since-value"></span>
+  </div>
+</footer>
+
+<dialog id="why">
+  <div class="dlg-head"><h2>Why two checks?</h2><button type="button" class="close" data-close aria-label="Close">Close</button></div>
+  <p>A trend is “significant” when it would be very unlikely to appear by chance if nothing were really changing. The usual quick test can get this wrong in two ways.</p>
+  <div class="steps">
+    <div><span class="caps">1 · Seasons hide trends</span><p>Summer and winter swing the monthly values far more than any slow change. A line fitted to the raw months sees mostly that swing, so it can miss a real trend. The careful check first subtracts the usual value for each calendar month.</p></div>
+    <div><span class="caps">2 · Months have memory</span><p>A warm month is often followed by another warm month. Neighbouring months repeat part of the same information, so 540 months are worth fewer than 540 independent measurements. Ignoring this makes chance wiggles look like trends.</p></div>
+    <div><span class="caps">3 · Two tests must agree</span><p>The careful check runs a line fit that corrects for this memory, and a rank-based test (Mann-Kendall, modified for memory) that does not assume bell-shaped data. It calls a trend strong only when both agree.</p></div>
+  </div>
+  <p class="fine">For a single season (one value per year) there is no seasonal cycle to remove, so step 1 is not needed. Steps 2 and 3 still apply.</p>
+  <h3>We tested the tests</h3>
+  <p id="sim-intro"></p>
+  <div id="sim-false"></div>
+  <div id="sim-missed"></div>
+  <p class="fine" id="sim-note"></p>
+</dialog>
+
+<dialog id="data">
+  <div class="dlg-head"><h2>About the data</h2><button type="button" class="close" data-close aria-label="Close">Close</button></div>
+  <p>All series are monthly values from NASA sources. Each answer panel names its dataset.</p>
+  <p>When you check your own place, this page asks the NASA POWER service for that point's monthly record (MERRA-2 reanalysis, 1981 to 2025) and runs the tests in your browser. The saved records below were analysed in advance with the same methods.</p>
+  <ul id="data-list"></ul>
+  <p class="fine">Reanalysis data such as MERRA-2 blend satellite and other observations with a weather model. Changes in the observing system over the decades can add artificial trends, especially for rainfall. Treat single-point results as a starting point for investigation, not as a final scientific finding.</p>
+  <p class="fine">This is a student project for the NASA Space Apps Challenge 2026. It is not affiliated with or endorsed by NASA. Earth imagery: NASA Blue Marble, as bundled with the open-source three-globe library.</p>
+</dialog>
+
+<script src="vendor/globe.gl.min.js"></script>
+<script src="stats.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

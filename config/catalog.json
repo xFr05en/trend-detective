@@ -1,0 +1,167 @@
+{
+  "variables": {
+    "T2M": {
+      "name": "Air temperature",
+      "unit": "°C",
+      "definition": "The average temperature of the air about two metres above the ground, where people live and weather stations measure.",
+      "dataset": "NASA POWER (MERRA-2 reanalysis), monthly mean"
+    },
+    "T2M_MIN": {
+      "name": "Coldest temperature of the month",
+      "unit": "°C",
+      "definition": "The lowest air temperature reached during each month, two metres above the ground. It usually happens on a clear, calm night.",
+      "dataset": "NASA POWER (MERRA-2 reanalysis), monthly minimum"
+    },
+    "PRECTOTCORR": {
+      "name": "Rain and snow",
+      "unit": "mm/day",
+      "definition": "The depth of rain and melted snow reaching the ground, averaged per day over each month.",
+      "dataset": "NASA POWER (MERRA-2 reanalysis, bias-corrected precipitation), monthly mean"
+    },
+    "IMERG_PRECIP": {
+      "name": "Rain and snow (satellite)",
+      "unit": "mm/day",
+      "definition": "The depth of rain and melted snow reaching the ground, estimated from a network of satellites and corrected with rain gauges, averaged per day over each month.",
+      "dataset": "GPM IMERG Final Run monthly V07 (GPM_3IMERGM), area average over 126.5-127.5°E, 37.1-38.0°N, from NASA Giovanni"
+    }
+  },
+  "places": {
+    "seoul": {
+      "name": "Seoul",
+      "country": "South Korea",
+      "lat": 37.57,
+      "lon": 126.98
+    },
+    "svalbard": {
+      "name": "Svalbard",
+      "country": "Arctic Norway",
+      "lat": 78.22,
+      "lon": 15.65
+    },
+    "singapore": {
+      "name": "Singapore",
+      "country": "Singapore",
+      "lat": 1.35,
+      "lon": 103.82
+    },
+    "niamey": {
+      "name": "Niamey",
+      "country": "Niger, Sahel",
+      "lat": 13.51,
+      "lon": 2.11
+    },
+    "santiago": {
+      "name": "Santiago",
+      "country": "Chile",
+      "lat": -33.45,
+      "lon": -70.67
+    }
+  },
+  "series": [
+    {
+      "id": "seoul_T2M",
+      "place": "seoul",
+      "variable": "T2M",
+      "file": "data/raw/power_seoul_T2M.csv",
+      "format": "power"
+    },
+    {
+      "id": "seoul_T2M_MIN",
+      "place": "seoul",
+      "variable": "T2M_MIN",
+      "file": "data/raw/power_seoul_T2M_MIN.csv",
+      "format": "power"
+    },
+    {
+      "id": "seoul_PRECTOTCORR",
+      "place": "seoul",
+      "variable": "PRECTOTCORR",
+      "file": "data/raw/power_seoul_PRECTOTCORR.csv",
+      "format": "power"
+    },
+    {
+      "id": "svalbard_T2M",
+      "place": "svalbard",
+      "variable": "T2M",
+      "file": "data/raw/power_svalbard_T2M.csv",
+      "format": "power"
+    },
+    {
+      "id": "singapore_T2M",
+      "place": "singapore",
+      "variable": "T2M",
+      "file": "data/raw/power_singapore_T2M.csv",
+      "format": "power"
+    },
+    {
+      "id": "niamey_PRECTOTCORR",
+      "place": "niamey",
+      "variable": "PRECTOTCORR",
+      "file": "data/raw/power_niamey_PRECTOTCORR.csv",
+      "format": "power"
+    },
+    {
+      "id": "santiago_PRECTOTCORR",
+      "place": "santiago",
+      "variable": "PRECTOTCORR",
+      "file": "data/raw/power_santiago_PRECTOTCORR.csv",
+      "format": "power"
+    },
+    {
+      "id": "seoul_IMERG_PRECIP",
+      "place": "seoul",
+      "variable": "IMERG_PRECIP",
+      "file": "data/giovanni/giovanni_seoul_GPM_3IMERGM_07_precipitation_2001-2024.csv",
+      "format": "giovanni",
+      "scale": 24,
+      "scale_note": "Giovanni serves this variable in mm/hr; multiplied by 24 to give mm/day",
+      "crosscheck": "seoul_PRECTOTCORR"
+    }
+  ],
+  "investigations": [
+    {
+      "id": "seoul-warming",
+      "question": "Is Seoul getting warmer?",
+      "series": [
+        "seoul_T2M"
+      ]
+    },
+    {
+      "id": "seoul-nights",
+      "question": "Are Seoul's coldest nights getting milder?",
+      "series": [
+        "seoul_T2M_MIN"
+      ]
+    },
+    {
+      "id": "seoul-rain",
+      "question": "Is Seoul getting rainier?",
+      "series": [
+        "seoul_PRECTOTCORR"
+      ]
+    },
+    {
+      "id": "seoul-rain-satellite",
+      "question": "Do the satellites agree about Seoul's rain?",
+      "series": [
+        "seoul_IMERG_PRECIP"
+      ]
+    },
+    {
+      "id": "arctic-vs-tropics",
+      "question": "Is the Arctic warming faster than the tropics?",
+      "series": [
+        "svalbard_T2M",
+        "singapore_T2M"
+      ]
+    },
+    {
+      "id": "wetter-drier",
+      "question": "Wetter here, drier there?",
+      "series": [
+        "niamey_PRECTOTCORR",
+        "santiago_PRECTOTCORR"
+      ]
+    }
+  ]
+}

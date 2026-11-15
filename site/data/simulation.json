@@ -1,0 +1,70 @@
+{
+ "reps": 2000,
+ "n_years": 45,
+ "alpha": 0.05,
+ "seed": 2026,
+ "false_alarms": [
+  {
+   "phi": 0.0,
+   "naive_ols": 5.7,
+   "adjusted_ols": 5.2,
+   "hac": 6.5,
+   "mann_kendall_plain": 5.2,
+   "mann_kendall_modified": 9.9,
+   "careful": 3.9
+  },
+  {
+   "phi": 0.3,
+   "naive_ols": 15.2,
+   "adjusted_ols": 5.8,
+   "hac": 8.3,
+   "mann_kendall_plain": 14.6,
+   "mann_kendall_modified": 10.8,
+   "careful": 5.5
+  },
+  {
+   "phi": 0.6,
+   "naive_ols": 31.6,
+   "adjusted_ols": 4.2,
+   "hac": 10.8,
+   "mann_kendall_plain": 30.8,
+   "mann_kendall_modified": 14.6,
+   "careful": 4.2
+  },
+  {
+   "phi": 0.8,
+   "naive_ols": 51.9,
+   "adjusted_ols": 5.8,
+   "hac": 20.1,
+   "mann_kendall_plain": 50.5,
+   "mann_kendall_modified": 22.0,
+   "careful": 5.8
+  }
+ ],
+ "missed_trends": [
+  {
+   "phi": 0.0,
+   "trend_per_decade": 0.25,
+   "seasonal_amplitude": 10,
+   "noise_sd": 1.5,
+   "quick_found": 0.0,
+   "careful_found": 99.7
+  },
+  {
+   "phi": 0.3,
+   "trend_per_decade": 0.25,
+   "seasonal_amplitude": 10,
+   "noise_sd": 1.5,
+   "quick_found": 0.0,
+   "careful_found": 95.5
+  },
+  {
+   "phi": 0.6,
+   "trend_per_decade": 0.25,
+   "seasonal_amplitude": 10,
+   "noise_sd": 1.5,
+   "quick_found": 0.5,
+   "careful_found": 70.3
+  }
+ ]
+}
